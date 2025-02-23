@@ -9,9 +9,9 @@ export const Slice = createSlice({
     initialState,
     reducers: {
         userState: (state, action) => {
-            console.log(state,"state");
-            state.user.currentUser = action.payload;
-            console.log(state,"state");
+            console.log(state.currentUser,"state");
+            state.currentUser = action.payload;
+            console.log(state.currentUser,"state");
         },
         userLogout: (state,action) => {
             // state.currentUser = null;
