@@ -29,7 +29,7 @@ createRoot(document.getElementById("root")).render(
             {/* Wrap everything inside BrowserRouter */}
             <Suspense
               fallback={
-                <div className="flex justify-center items-center h-screen bg-gray-100">
+                <div className="flex justify-center items-center h-screen bg-purple-300">
                   <div className="relative w-16 h-16">
                     <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
                   </div>
