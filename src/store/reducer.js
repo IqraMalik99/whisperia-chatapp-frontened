@@ -10,14 +10,15 @@ export const Slice = createSlice({
     reducers: {
         userState: (state, action) => {
             console.log(state.currentUser,"state");
+            if (!state) return initialState;  // Ensure state is never undefined
             state.currentUser = action.payload;
             console.log(state.currentUser,"state");
         },
         userLogout: (state,action) => {
-            // state.currentUser = null;
-            // state.login = false;
-            // state.chatId=null;
-            return initialState;
+            state.currentUser = null;
+            state.login = false;
+            state.chatId=null;
+            // return initialState;
         },
         userId:(state,action)=>{
            state.chatId =action.payload;

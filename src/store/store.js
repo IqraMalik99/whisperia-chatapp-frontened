@@ -23,17 +23,18 @@ import SliceReducer from './reducer.js';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
-// 🔹 Persist Config
+// 🔹 Persist Config (Persist Only User Slice)
 const persistConfig = {
-    key: 'root',
-    storage
+    key: 'user',
+    storage,
+    whitelist: ['user']
 };
 
 // 🔹 Combine Reducers
 const rootReducer = combineReducers({ user: SliceReducer });
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-// 🔹 Configure Store with middleware fix
+// 🔹 Configure Store with Middleware Fix
 export const store = configureStore({
     reducer: persistedReducer,
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
@@ -43,3 +44,9 @@ export const store = configureStore({
 
 // 🔹 Persistor
 export const persistor = persistStore(store);
+
+// 🔹 Debugging (Log Redux State)
+store.subscribe(() => {
+    console.log("Updated Redux State:", store.getState());
+});
+

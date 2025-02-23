@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
 
 const SocketContext = createContext();
@@ -9,11 +9,11 @@ export const SocketProvider = ({ children }) => {
     const [socket, setSocket] = useState(null);
 
     useEffect(() => {
-        const newSocket = io('http://localhost:3000', {
+        const newSocket = io('https://whisperia-backened-production.up.railway.app', {
             withCredentials: true, // Ensures credentials (cookies, headers) are sent
             transports: ['websocket'], // Preferred transport method
             extraHeaders: {
-                'Access-Control-Allow-Origin': 'http://localhost:5173', // CORS header
+                'Access-Control-Allow-Origin': 'https://whisperia-frontened.vercel.app', // CORS header
             },
         });
 
