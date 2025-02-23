@@ -17,17 +17,15 @@
 // });
 // export const persistor = persistStore(store);
 
-
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import SliceReducer from './reducer.js';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
-// 🔹 Persist Config (Persist Only User Slice)
+// 🔹 Correct Persist Config
 const persistConfig = {
-    key: 'user',
-    storage,
-    whitelist: ['user']
+    key: 'root', // Keep 'root' to store everything properly
+    storage
 };
 
 // 🔹 Combine Reducers
@@ -37,9 +35,10 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 // 🔹 Configure Store with Middleware Fix
 export const store = configureStore({
     reducer: persistedReducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware({
-        serializableCheck: false // 🔹 Fix: Prevents non-serializable state errors
-    })
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware({
+            serializableCheck: false // 🔹 Fix for non-serializable state errors
+        })
 });
 
 // 🔹 Persistor
@@ -49,4 +48,3 @@ export const persistor = persistStore(store);
 store.subscribe(() => {
     console.log("Updated Redux State:", store.getState());
 });
-

@@ -9,10 +9,9 @@ export const Slice = createSlice({
     initialState,
     reducers: {
         userState: (state, action) => {
-            console.log(state.currentUser,"state");
-            if (!state) return initialState;  // Ensure state is never undefined
-            state.currentUser = action.payload;
-            console.log(state.currentUser,"state");
+            console.log("Before Update:", state.currentUser);
+            state.currentUser = action.payload; // ✅ Correctly updates the state
+            console.log("After Update:", state.currentUser);
         },
         userLogout: (state,action) => {
             state.currentUser = null;
