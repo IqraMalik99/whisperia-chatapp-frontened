@@ -11,7 +11,7 @@ export const Slice = createSlice({
         userState: (state, action) => {
             state.currentUser = action.payload;
         },
-        userLogout: (state, action) => {
+        userLogout: (state,action) => {
             // state.currentUser = null;
             // state.login = false;
             // state.chatId=null;
@@ -20,7 +20,7 @@ export const Slice = createSlice({
         userId:(state,action)=>{
            state.chatId =action.payload;
         },
-        userLogin: (state, action) => {
+        userLogin: (state,action) => {
             state.login = true
         }
     }

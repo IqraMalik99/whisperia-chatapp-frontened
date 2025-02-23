@@ -71,7 +71,6 @@ function SignIn() {
         id: response.data.data.id,
       };
       console.log(userInfo);
-
       dispatch(userState(userInfo));
       dispatch(userLogin());
       navigate("/chats/1");
