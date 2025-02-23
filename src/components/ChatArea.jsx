@@ -197,7 +197,6 @@ function ChatArea() {
       }
     } catch (error) {
       console.error('Error fetching chat data:', error);
-      toast.error('Failed to load chat messages.');
     } finally {
       setIsFetching(false);
     }
