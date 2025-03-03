@@ -18,11 +18,11 @@ function SignUp() {
     
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
+    const apiUrl = import.meta.env.VITE_API_URL;
     const onSubmit = async (data) => {
         try {
             console.log("My data is", data);
-            const response = await axios.post('https://whisperia-backened-production.up.railway.app/user/sign-up', data,  {
+            const response = await axios.post(`http://localhost:3000/user/sign-up`, data,  {
                 headers: {
                   'Content-Type': 'multipart/form-data',
                 },

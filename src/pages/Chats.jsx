@@ -12,7 +12,6 @@ function Chats() {
   const socket = useSocket(); // Get the socket instance
   const user = useSelector((state) => state.user.login);
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     if (!user) {
       navigate('/sign-in');

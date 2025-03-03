@@ -14,9 +14,13 @@ export default function AddFriend() {
   const [friendRequest, setFriendRequest] = useState([]); // here I have selected user to send friend request
   const socket = useSocket();
   const user = useSelector((state) => state.user.currentUser);
+  const apiUrl = import.meta.env.VITE_API_URL;
+  console.log(apiUrl);
+  
+  
   useEffect(() => {
     const fetchUsers = async () => {
-      const res = await axios.get(`https://whisperia-backened-production.up.railway.app/chat/getNotMyFriend`, { withCredentials: true });
+      const res = await axios.get(`http://localhost:3000/chat/getNotMyFriend`, { withCredentials: true });
       if (res.data.data.length > 0) {
         // Add 'add' property to users
         const usersWithToggle = res.data.data.map(user => ({ ...user, add: false }));
@@ -59,8 +63,6 @@ export default function AddFriend() {
     // send friendRequest to backend
     try {
       console.log(friendRequest);
-      // await axios.post('https://whisperia-backened-production.up.railway.app/chat/sendFriendRequests', { requests: friendRequest }, { withCredentials: true });
-       // here send api to send list of user to send friend request
        console.log("user is is",user);
        
       socket.emit(Friend_Request,{
@@ -86,9 +88,10 @@ export default function AddFriend() {
         onClose={handleClose}
         PaperProps={{
           sx: {
-            height: '70vh', 
+            height: '80vh', 
             maxWidth: '400px', 
-            width: '100%', 
+            width: '100%',
+            padding:3 
           },
           component: 'form',
           onSubmit: handleSubmit

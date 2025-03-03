@@ -6,7 +6,6 @@ import { toast } from 'react-hot-toast';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import { useSocket } from '../socket.jsx';
-import Doll from './doll.png';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useNavigate } from 'react-router-dom';
 import CryptoJS from 'crypto-js';
@@ -18,6 +17,7 @@ function ChatArea() {
   const userId = useSelector((state) => state.user.currentUser.id);
   const socket = useSocket();
   const navigate = useNavigate();
+  const apiUrl = import.meta.env.VITE_API_URL;
 
   // States
   const [messages, setMessages] = useState([]);
@@ -52,7 +52,7 @@ function ChatArea() {
       console.log('Uploading file:', file);
       
       const response = await axios.post(
-        'https://whisperia-backened-production.up.railway.app/chat/createAttachment',
+        `http://localhost:3000/chat/createAttachment`,
         formData,
         {
           headers: { 'Content-Type': 'multipart/form-data' },
@@ -76,7 +76,7 @@ function ChatArea() {
     if (isChatbotEnabled) {
       try {
         const response = await axios.post(
-          'https://whisperia-backened-production.up.railway.app/chat/chatbot',
+          'http://localhost:3000/chat/chatbot',
           { message: inputMessage },
           { withCredentials: true }
         );
@@ -95,6 +95,10 @@ function ChatArea() {
         toast.error('Failed to send message to chatbot.');
       }
     } else {
+      if (!socket) {
+        toast.error("Socket not connected!");
+        return;
+      }
       let encryptedMessage = encryptMessage(inputMessage);
       socket.emit('NEW_MESSAGE', {
         sender: userId,
@@ -102,9 +106,19 @@ function ChatArea() {
         chatId,
         members: memberChat,
       });
-      console.log("go");
+
+      let msgObj={ sender: userId,
+        content: encryptedMessage,
+        chatId,
+        members: memberChat,}
+      console.log("go",msgObj);
       
-      toast.success(`${userId}`, { autoClose: 2000 });
+
+
+      if (!socket) {
+        toast.error("Socket not connected!");
+        return;
+      }
     }
     setInputMessage('');
   };
@@ -168,11 +182,11 @@ function ChatArea() {
       console.log(`API call triggered for page ${currentPage}`);
       setIsFetching(true);
       const res = await axios.get(
-        `https://whisperia-backened-production.up.railway.app/chat/getmsg/${chatId}?page=${currentPage}&limit=40`,
+        `http://localhost:3000/chat/getmsg/${chatId}?page=${currentPage}&limit=40`,
         { withCredentials: true }
       );
       const membersRes = await axios.get(
-        `https://whisperia-backened-production.up.railway.app/chat/getmemberfromchatId/${chatId}`,
+        `http://localhost:3000/chat/getmemberfromchatId/${chatId}`,
         { withCredentials: true }
       );
       setMemberChat(membersRes.data.message[0].members);
@@ -316,7 +330,6 @@ function ChatArea() {
             ))
           ) : (
             <div className="w-full h-full flex flex-col justify-center items-center">
-              <img src={Doll} alt="Doll" className="w-1/2 mt-4" />
               <div className="text-purple-500 font-bold text-2xl">CHAT AREA</div>
               <div className="text-purple-700 font-bold text-xl">START CHATTING ....</div>
             </div>

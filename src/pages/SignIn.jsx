@@ -5,10 +5,10 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { userState, userLogin } from "../store/reducer.js";
 import { Button } from "@mui/material";
-import { useEffect } from "react";
 
 function SignIn() {
   let dispatch = useDispatch();
+  const apiUrl = import.meta.env.VITE_API_URL;
   const {
     register,
     handleSubmit,
@@ -17,47 +17,16 @@ function SignIn() {
   } = useForm();
   const navigate = useNavigate();
   const loginUsers = useSelector((state) => state.user.login);
-  let dataUser = useSelector((state) => state.user.currentUser);
   console.log(loginUsers, "loginUsers");
-  useEffect(() => {
-    if (loginUsers) {
-      // on OPEN 2 ,3 TIME OF PAGE DELETE ID
-      console.log("data of user", dataUser);
-      if (dataUser.id) {
-        console.log("entry1");
-        let redirection = async () => {
-          console.log("entry2");
-          let response = await axios.get(
-            `https://whisperia-backened-production.up.railway.app/user/automatedLogin/${dataUser.id}`,
-            { withCredentials: true }
-          );
-          console.log(response.data.data, "responsess");
-          if (response.data.data.refreshToken) {
-            let data = response.data.data;
-            let userInfo = {
-              username: data.username,
-              email: data.email,
-              avatar: response.data.data.avatar,
-              time: response.data.data.createdAt,
-              id: response.data.data._id,
-            };
 
-            dispatch(userState(userInfo));
-            dispatch(userLogin());
-            navigate("/chats/1");
-          }
-        };
-        redirection();
-      }
-    }
-  }, []);
 
+  
   let onSubmit = async (data) => {
     try {
       // Send data to the backend using axios
 
       const response = await axios.post(
-        "https://whisperia-backened-production.up.railway.app/user/sign-in",
+        `http://localhost:3000/user/sign-in`,
         data,
         { withCredentials: true }
       );

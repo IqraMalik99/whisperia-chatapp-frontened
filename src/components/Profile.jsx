@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+
 import { Avatar } from '@mui/material'
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import moment from 'moment';
@@ -6,8 +6,6 @@ import { useSelector } from 'react-redux';
 
 function Profile() {
 let data = useSelector((state)=> state.user.currentUser);
-console.log(data);
-
 let timeAgo = moment(data.time).fromNow();
   return (
    <div className='-z-40 bg-purple-200 sticky top-0'>
