@@ -16,7 +16,7 @@ export default function GroupDialouge() {
   React.useEffect(() => {
     const fetcher = async () => {
         try {
-            const response = await axios.get(`http://localhost:3000/chat/getFriends`, { withCredentials: true });
+            const response = await axios.get(`https://whisperia-backened-production.up.railway.app/chat/getFriends`, { withCredentials: true });
             // console.log('Response from server:', response.data.message ,"The use which are my friends");
             let friends = response.data.message.map((user) => ({ id: user._id, name: user.username, add: false }));
             setUsers(friends); // Corrected setUser to setUsers
@@ -90,7 +90,7 @@ export default function GroupDialouge() {
       setFriendRequest([]);
       setTrigger(prev => !prev);
       let fetcher = async () => {
-        let res = await axios.post(`http://localhost:3000/chat/addmember`, { chatId:chatId, members: friendRequestids }, { withCredentials: true });
+        let res = await axios.post(`https://whisperia-backened-production.up.railway.app/chat/addmember`, { chatId:chatId, members: friendRequestids }, { withCredentials: true });
         console.log('Response from server:', res.data.message);
       };
     

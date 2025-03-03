@@ -8,11 +8,10 @@ export const useSocket = () => useContext(SocketContext);
 
 export const SocketProvider = ({ children, isAuthenticated }) => {
     const [socket, setSocket] = useState(null);
-
     useEffect(() => {
         if (!isAuthenticated) return; // Wait until user logs in
 
-        const newSocket = io(`http://localhost:3000`, {
+        const newSocket = io(`https://whisperia-backened-production.up.railway.app`, {
             withCredentials: true,
             transports: ["websocket"],
         });

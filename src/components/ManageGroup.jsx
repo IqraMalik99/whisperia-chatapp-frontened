@@ -16,7 +16,7 @@ function ManageGroup() {
     const fetcher = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(`http://localhost:3000/chat/get-info/${id}`, {
+        const response = await axios.get(`https://whisperia-backened-production.up.railway.app/chat/get-info/${id}`, {
           withCredentials: true,
         });
         console.log(response.data.data, " my chatszzttt");
@@ -36,7 +36,7 @@ function ManageGroup() {
 
   const handleRemove = async (memberId) => {
     try {
-      const removeMember = await axios.get(`http://localhost:3000/chat/remove/${id}/${memberId}`, {
+      const removeMember = await axios.get(`https://whisperia-backened-production.up.railway.app/chat/remove/${id}/${memberId}`, {
         withCredentials: true,
       });
       console.log(removeMember, "removed");

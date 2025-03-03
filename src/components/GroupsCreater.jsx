@@ -17,7 +17,7 @@ function GroupsCreater() {
   useEffect(() => {
     const fetcher = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/chat/get-group`, {
+        const response = await axios.get(`https://whisperia-backened-production.up.railway.app/chat/get-group`, {
           withCredentials: true,
         });
         setFriends(response.data);

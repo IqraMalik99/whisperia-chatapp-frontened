@@ -52,7 +52,7 @@ function ChatArea() {
       console.log('Uploading file:', file);
       
       const response = await axios.post(
-        `http://localhost:3000/chat/createAttachment`,
+        `https://whisperia-backened-production.up.railway.app/chat/createAttachment`,
         formData,
         {
           headers: { 'Content-Type': 'multipart/form-data' },
@@ -76,7 +76,7 @@ function ChatArea() {
     if (isChatbotEnabled) {
       try {
         const response = await axios.post(
-          'http://localhost:3000/chat/chatbot',
+          'https://whisperia-backened-production.up.railway.app/chat/chatbot',
           { message: inputMessage },
           { withCredentials: true }
         );
@@ -182,11 +182,11 @@ function ChatArea() {
       console.log(`API call triggered for page ${currentPage}`);
       setIsFetching(true);
       const res = await axios.get(
-        `http://localhost:3000/chat/getmsg/${chatId}?page=${currentPage}&limit=40`,
+        `https://whisperia-backened-production.up.railway.app/chat/getmsg/${chatId}?page=${currentPage}&limit=40`,
         { withCredentials: true }
       );
       const membersRes = await axios.get(
-        `http://localhost:3000/chat/getmemberfromchatId/${chatId}`,
+        `https://whisperia-backened-production.up.railway.app/chat/getmemberfromchatId/${chatId}`,
         { withCredentials: true }
       );
       setMemberChat(membersRes.data.message[0].members);

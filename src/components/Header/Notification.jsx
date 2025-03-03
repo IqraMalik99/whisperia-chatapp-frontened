@@ -22,7 +22,7 @@ export default function Notification() {
   const apiUrl = import.meta.env.VITE_API_URL;
   useEffect(() => {
     let fetcher = async () => {
-      let request = await axios.get(`http://localhost:3000/user/getreq`, { withCredentials: true });
+      let request = await axios.get(`https://whisperia-backened-production.up.railway.app/user/getreq`, { withCredentials: true });
       console.log("Request", request.data.data);
      
       request.data.data.map((req) => {
@@ -36,7 +36,7 @@ export default function Notification() {
         }
       })
 
-      let messagesAcceptReject= await axios.get(`http://localhost:3000/user/getreqacceptreject`, { withCredentials: true });
+      let messagesAcceptReject= await axios.get(`https://whisperia-backened-production.up.railway.app/user/getreqacceptreject`, { withCredentials: true });
       messagesAcceptReject.data.data.map((req) => {
       if(req.status == "accepted" || req.status == "rejected"){
         let newmsg={
@@ -105,7 +105,7 @@ export default function Notification() {
 
   useEffect(() => {
     let fetcher = async () => {
-      let res = await axios.get(`http://localhost:3000/user/getReq`, { withCredentials: true });
+      let res = await axios.get(`https://whisperia-backened-production.up.railway.app/user/getReq`, { withCredentials: true });
       console.log("reqgetter is :", res.data.data);
       if (res.data.data > 0) {
         res.data.data.map((per) => {

@@ -17,7 +17,7 @@ export default function GroupDialouge() {
   React.useEffect(() => {
     const fetcher = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/chat/getFriends`, { withCredentials: true });
+        const response = await axios.get(`https://whisperia-backened-production.up.railway.app/chat/getFriends`, { withCredentials: true });
         let friends = response.data.message.map((user) => ({ id: user._id, name: user.username, add: false }));
         setUsers(friends); // Corrected setUser to setUsers
       } catch (error) {
@@ -80,7 +80,7 @@ export default function GroupDialouge() {
             setFriendRequest([]);
             setTrigger(prev => !prev);
             let fetcher = async () => {
-              let res = await axios.post(`http://localhost:3000/chat/new`, { name: groupName, members: friendRequestids }, { withCredentials: true });
+              let res = await axios.post(`https://whisperia-backened-production.up.railway.app/chat/new`, { name: groupName, members: friendRequestids }, { withCredentials: true });
               console.log('Response from server:', res.data.message);
             };
             fetcher();

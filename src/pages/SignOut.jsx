@@ -16,7 +16,7 @@ function SignOut() {
         console.log("clicked");
 
         const response = await axios.post(
-          `http://localhost:3000/user/sign-out`,
+          `https://whisperia-backened-production.up.railway.app/user/sign-out`,
           {},
           {
             withCredentials: true, // Include credentials (cookies) with the request

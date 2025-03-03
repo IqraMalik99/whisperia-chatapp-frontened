@@ -20,7 +20,7 @@ export default function AddFriend() {
   
   useEffect(() => {
     const fetchUsers = async () => {
-      const res = await axios.get(`http://localhost:3000/chat/getNotMyFriend`, { withCredentials: true });
+      const res = await axios.get(`https://whisperia-backened-production.up.railway.app/chat/getNotMyFriend`, { withCredentials: true });
       if (res.data.data.length > 0) {
         // Add 'add' property to users
         const usersWithToggle = res.data.data.map(user => ({ ...user, add: false }));

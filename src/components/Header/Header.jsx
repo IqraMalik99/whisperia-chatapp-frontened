@@ -30,7 +30,7 @@ function Header() {
   const apiUrl = import.meta.env.VITE_API_URL;
   const automatedLogin = async () => {
     try {
-      const res = await axios.get(`http://localhost:3000/user/automatedLogin`, { withCredentials: true });
+      const res = await axios.get(`https://whisperia-backened-production.up.railway.app/user/automatedLogin`, { withCredentials: true });
       console.log(res.data.data, res.data, "res from automated");
 
       if (!res.data.data) {

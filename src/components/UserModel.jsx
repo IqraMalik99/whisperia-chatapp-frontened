@@ -41,7 +41,7 @@ function UserModel() {
       console.log('entry');
       let fetcher = async () => {
         try {
-          const response = await axios.get(`http://localhost:3000/chat/get-chat`, {
+          const response = await axios.get(`https://whisperia-backened-production.up.railway.app/chat/get-chat`, {
             withCredentials: true,
           });
           setFriends(response.data);
@@ -69,7 +69,7 @@ function UserModel() {
   useEffect(() => {
     let fetcher = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/chat/get-chat`, {
+        const response = await axios.get(`https://whisperia-backened-production.up.railway.app/chat/get-chat`, {
           withCredentials: true,
         });
         setFriends(response.data);
@@ -87,7 +87,7 @@ function UserModel() {
     setGroupOpen(false);
     console.log(chatId);
 
-    let leftgroup = await axios.get(`http://localhost:3000/chat/left-chat/${chatId}`, {
+    let leftgroup = await axios.get(`https://whisperia-backened-production.up.railway.app/chat/left-chat/${chatId}`, {
       withCredentials: true,
     });
     console.log(leftgroup, 'left');
@@ -121,7 +121,7 @@ function UserModel() {
   let handleDelete = async () => {
     console.log('Done1');
     setOpen(false);
-    let deleteChat = await axios.get(`http://localhost:3000/chat/delete-chat/${chatId}`, {
+    let deleteChat = await axios.get(`https://whisperia-backened-production.up.railway.app/chat/delete-chat/${chatId}`, {
       withCredentials: true,
     });
     console.log(deleteChat);

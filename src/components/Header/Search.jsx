@@ -20,7 +20,7 @@ export default function Search() {
     React.useEffect(() => {
         const fetcher = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/chat/getFriends`, { withCredentials: true });
+                const response = await axios.get(`https://whisperia-backened-production.up.railway.app/chat/getFriends`, { withCredentials: true });
                 console.log('Response from server:', response.data.message ,"The use which are my friends");
                 setUsers(response.data.message); // Corrected setUser to setUsers
             } catch (error) {
@@ -51,7 +51,7 @@ export default function Search() {
     const handleUserSelect = (user) => {
         if (user) {
             let getter = async () => {
-                let response = await axios.get(`http://localhost:3000/chat/friendchat/${user._id}`, { withCredentials: true });
+                let response = await axios.get(`https://whisperia-backened-production.up.railway.app/chat/friendchat/${user._id}`, { withCredentials: true });
                 if(response.data.message.length<1){
                     console.log(response.data);
                     
