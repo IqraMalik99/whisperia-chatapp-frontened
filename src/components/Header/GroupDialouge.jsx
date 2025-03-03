@@ -13,7 +13,6 @@ export default function GroupDialouge() {
   let [groupName, setGroupName] = useState("");
   let navigate = useNavigate();
   const [users, setUsers] = useState([]);
-  const apiUrl = import.meta.env.VITE_API_URL;
   React.useEffect(() => {
     const fetcher = async () => {
       try {

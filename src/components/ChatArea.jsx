@@ -146,8 +146,14 @@ function ChatArea() {
       });
     };
 
+   if(socket){
     socket.on('NEW_MESSAGE', handleMessage);
     socket.on('START_TYPING_SHOW', handleTyping);
+   }
+   else{
+    console.log("socket not");
+    
+   }
 
     return () => {
       socket.off('NEW_MESSAGE', handleMessage);

@@ -37,6 +37,7 @@ function UserModel() {
   };
 
   useEffect(() => {
+   if(socket){
     socket.on('REFETCH_CHATS', async () => {
       console.log('entry');
       let fetcher = async () => {
@@ -59,6 +60,11 @@ function UserModel() {
       console.log(leftUser);
       toast.success(`${leftUserName} has left the group`);
     });
+   }
+   else{
+    console.log("socket not");
+   
+   }
 
     return () => {
       socket.off('REFETCH_CHATS');

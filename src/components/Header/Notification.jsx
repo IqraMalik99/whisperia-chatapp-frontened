@@ -56,6 +56,7 @@ export default function Notification() {
     const Accept_FRIEND_Request_ALERT = 'Accept_FRIEND_Request_ALERT';
     const Reject_FRIEND_Request_ALERT = 'Reject_FRIEND_Request_ALERT';
 
+   if(socket){
     socket.on(Accept_FRIEND_Request_ALERT, async ({ message, requestId }) => {
       console.log("its message to sender ", message,requestId);
       let newmsg={
@@ -94,6 +95,11 @@ export default function Notification() {
       setRequests((prev) => [...prev, newreq]); // Add new sender to the list
 
     });
+   }
+   else{
+    console.log("socket not inialtized");
+    
+   }
 
     // Cleanup listener on unmount
     return () => {
@@ -138,7 +144,13 @@ export default function Notification() {
   const handleAccept = async (requestId,sender) => {
     console.log(requestId);
     console.log(sender);
+   if(socket){
     socket.emit('ACCEPT_FRIEND_REQUEST', {requestId,sender,data});
+   }
+   else{
+    console.log("socket not");
+    
+   }
     console.log(sender,"sender");
     setRequests((prev) => prev.filter((req) => req.requestId  !== requestId));
   };
@@ -149,13 +161,24 @@ export default function Notification() {
   console.log(sender);
   
     
+  if(socket){
     socket.emit('REJECT_FRIEND_REQUEST', {requestId,sender,data});
+  }
+  else{
+    console.log("socket not iniltilized");
+  }
     setRequests((prev) => prev.filter((req) => req.requestId  !== requestId));
   };
 
  let sendreject =(id)=>{
   setmsg((prev) =>prev.filter((req) => req.id !== id));
+ if(socket){
   socket.emit('Delete_Request', {id});
+ }
+ else{
+  console.log("socket not initialized");
+  
+ }
 }
   return (
     <React.Fragment>

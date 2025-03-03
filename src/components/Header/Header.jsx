@@ -61,11 +61,17 @@ function Header() {
   }, []);
 
   useEffect(() => {
+   if(socket){
     const handleNotify = async ({ message }) => {
       console.log(message);
       toast.success(message);
     };
     socket.on('RemoveMember', handleNotify);
+   }
+   else{
+    console.log("socket is not initialized");
+    
+   }
     return () => {
       socket.off('RemoveMember', handleNotify);
     };

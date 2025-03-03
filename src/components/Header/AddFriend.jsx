@@ -62,15 +62,21 @@ export default function AddFriend() {
     event.preventDefault();
     // send friendRequest to backend
     try {
+     if(socket){
       console.log(friendRequest);
-       console.log("user is is",user);
-       
-      socket.emit(Friend_Request,{
-     sender:user,
-     friends:friendRequest
-      })
-      setFriendRequest([]); 
-      handleClose(); 
+      console.log("user is is",user);
+      
+     socket.emit(Friend_Request,{
+    sender:user,
+    friends:friendRequest
+     })
+     setFriendRequest([]); 
+     handleClose(); 
+     }
+     else{
+      console.log("socket is not inialtilized",socket);
+      
+     }
     } catch (error) {
       console.error('Error sending friend requests:', error);
     }

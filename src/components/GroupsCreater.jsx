@@ -34,7 +34,13 @@ function GroupsCreater() {
       fetcher();
     };
 
+  if(socket){
     socket.on("Group_Refetch", handleRefetch);
+  }
+  else{
+    console.log("socket not");
+    
+  }
 
     // Cleanup socket event listener
     return () => {
