@@ -49,7 +49,7 @@ function GroupsCreater() {
   }, [socket]);
 
   return (
-    <div className="mt-20 w-screen lg:w-1/4 lg:fixed lg:left-0 lg:top-0 lg:h-screen lg:overflow-y-auto lg:border-r">
+    <div className="mt-52 md:mt-20 w-screen lg:w-1/4 lg:fixed lg:left-0 lg:top-0 lg:h-screen lg:overflow-y-auto lg:border-r">
       <div className="lg:p-4">
         {friends.map((user) => (
           <div

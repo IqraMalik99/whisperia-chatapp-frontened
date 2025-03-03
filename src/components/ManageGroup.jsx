@@ -51,7 +51,7 @@ function ManageGroup() {
   };
 
   return (
-    <div className="relative mt-20 w-screen md:w-3/4 m-auto">
+    <div className="relative mt-32 md:mt-20 w-screen md:w-3/4 m-auto">
       {/* Back arrow at top left */}
       <div
         className="cursor-pointer mb-2 block lg:hidden"
