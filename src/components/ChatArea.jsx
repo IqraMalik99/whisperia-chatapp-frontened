@@ -278,7 +278,7 @@ function ChatArea() {
             messages.map((msg) => (
               <div
                 key={msg._id}
-                className={`w-full flex ${
+                className={`w-full h-auto flex ${
                   msg.sender._id.toString() === userId ? 'justify-end' : 'justify-start'
                 }`}
               >
