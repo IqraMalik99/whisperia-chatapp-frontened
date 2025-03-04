@@ -278,11 +278,11 @@ function ChatArea() {
             messages.map((msg) => (
               <div
                 key={msg._id}
-                className={`w-full  flex ${
+                className={`w-full flex ${
                   msg.sender._id.toString() === userId ? 'justify-end' : 'justify-start'
                 }`}
               >
-                <div className="h-auto max-w-64 mx-4 mt-2 bg-purple-100 p-2 rounded-xl">
+                <div className="max-w-64 mx-4 mt-2 bg-purple-100 p-2 rounded-xl">
                   <div className="font-bold text-pink-500">{msg.sender.username}</div>
                   {msg.attachment?.length > 0 ? (
   msg.attachment.map((att) => {
