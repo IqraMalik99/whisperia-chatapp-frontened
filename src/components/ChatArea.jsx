@@ -637,7 +637,7 @@ function ChatArea() {
   }, [chatId]);
 
   return (
-    <div className="md:mt-10 mt-32">
+    <div className="md:mt-10">
       <button className="mt-8 ml-2" onClick={() => navigate('/friends')}>
         <ArrowBackIcon />
       </button>
