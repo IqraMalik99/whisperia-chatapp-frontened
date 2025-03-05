@@ -47,7 +47,7 @@ function Header() {
         };
         dispatch(userLogin());
         dispatch(userState(userInfo));
-        navigate('/chats/1');
+        navigate('/friends');
       }
     } catch (error) {
       console.error("Error in automatedLogin:", error);
