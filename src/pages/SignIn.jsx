@@ -42,7 +42,7 @@ function SignIn() {
       console.log(userInfo);
       dispatch(userState(userInfo));
       dispatch(userLogin());
-      navigate("/chats/1");
+      navigate("/friends");
     } catch (error) {
       console.error("Error submitting form:", error);
     }
