@@ -523,7 +523,7 @@ function ChatArea() {
       toast.dismiss('typing-notification');
       toast.success(`${username} is typing...`, {
         style: { background: 'purple', color: 'white' },
-        position: 'bottom-center',
+        position: 'top-left',
         id: 'typing-notification',
         autoClose: 1000,
       });
