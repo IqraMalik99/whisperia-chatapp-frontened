@@ -35,6 +35,10 @@ function SignOut() {
       } catch (error) {
         console.error("Error submitting form in logout:", error);
         dispatch(userLogout());
+        if (socket) {
+          socket.disconnect(); 
+          console.log("Socket disconnected on logout");
+        }
         console.log("error");
       } finally {
         navigate("/sign-in");

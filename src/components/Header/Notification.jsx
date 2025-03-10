@@ -56,32 +56,10 @@ export default function Notification() {
     const Accept_FRIEND_Request_ALERT = 'Accept_FRIEND_Request_ALERT';
     const Reject_FRIEND_Request_ALERT = 'Reject_FRIEND_Request_ALERT';
 
-   if(socket){
-    socket.on(Accept_FRIEND_Request_ALERT, async ({ message, requestId }) => {
-      console.log("its message to sender ", message,requestId);
-      let newmsg={
-        msg:message,
-        id:requestId
-      }
-      setmsg((prev) => [...prev, newmsg]);
-      console.log("its message to sender ", message);
-    })
-
-
-    socket.on(Reject_FRIEND_Request_ALERT, ({ message, requestId }) => {
-      console.log("its message to sender ", message,requestId);
-      let newmsg={
-        msg:message,
-        id:requestId
-      }
-      setmsg((prev) => [...prev, newmsg]);
-      console.log("its message to sender ", message);
-    })
-
-    socket.on(FRIEND_REQUEST_ALERT, async ({ sender,
+    let FriendReqFunc =async ({ sender,
       requestId,
       content }) => {
-
+    
       console.log("Received friend request from hehe:", {
         sender,
         requestId,
@@ -93,19 +71,44 @@ export default function Notification() {
         content: content
       }
       setRequests((prev) => [...prev, newreq]); // Add new sender to the list
+    
+    }
+    let RejReqFunc=({ message, requestId }) => {
+      console.log("its message to sender ", message,requestId);
+      let newmsg={
+        msg:message,
+        id:requestId
+      }
+      setmsg((prev) => [...prev, newmsg]);
+      console.log("its message to sender ", message);
+    }
+    let AcceptReq=async ({ message, requestId }) => {
+      console.log("its message to sender ", message,requestId);
+      let newmsg={
+        msg:message,
+        id:requestId
+      }
+      setmsg((prev) => [...prev, newmsg]);
+      console.log("its message to sender ", message);
+    }
 
-    });
+   if(socket){
+    socket.on(Accept_FRIEND_Request_ALERT,AcceptReq)
+
+
+    socket.on(Reject_FRIEND_Request_ALERT,RejReqFunc)
+
+    socket.on(FRIEND_REQUEST_ALERT, FriendReqFunc);
    }
    else{
-    console.log("socket not inialtized");
-    
+    console.log("socket not inialtized"); 
    }
 
     // Cleanup listener on unmount
     return () => {
-      socket.off(FRIEND_REQUEST_ALERT);
-      socket.off(Accept_FRIEND_Request_ALERT);
-      socket.off(Reject_FRIEND_Request_ALERT);
+      socket.off(FRIEND_REQUEST_ALERT,FriendReqFunc);
+      socket.off(Accept_FRIEND_Request_ALERT,AcceptReq);
+      socket.off(Reject_FRIEND_Request_ALERT,RejReqFunc);
     };
   }, [socket]);
 

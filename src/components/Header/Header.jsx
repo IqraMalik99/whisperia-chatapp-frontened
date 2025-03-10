@@ -58,6 +58,10 @@ function Header() {
       console.error("Error in automatedLogin:", error);
       persistor.purge();
       dispatch(userLogout());
+      if (socket) {
+        socket.disconnect(); 
+        console.log("Socket disconnected on logout");
+      }
     }
   };
 
@@ -68,14 +72,15 @@ function Header() {
   useEffect(() => {
    if(!socket){
      console.log("socket is not initialized");
+     return
    }
    const handleNotify = async ({ message }) => {
     console.log(message);
     toast.success(message);
   };
-  socket.on('RemoveMember', handleNotify);
+  socket.on('RemoveMember',handleNotify);
     return () => {
-      socket.off('RemoveMember', handleNotify);
+      socket.off('RemoveMember',handleNotify);
     };
   }, [socket]);
 
