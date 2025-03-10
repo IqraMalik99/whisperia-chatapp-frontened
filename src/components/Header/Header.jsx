@@ -36,6 +36,7 @@ function Header() {
       if (!res.data.data) {
         persistor.purge();
         dispatch(userLogout());
+        navigate('/sign-in');
       } else {
         const data = res.data.data;
         const userInfo = {
