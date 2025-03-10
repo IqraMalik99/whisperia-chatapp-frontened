@@ -21,7 +21,7 @@ function UserModel() {
   let navigate = useNavigate();
   const socket = useSocket();
   const chatId = useSelector((state) => state.user.chatId);
-  const apiUrl= import.meta.env.VITE_API_URL;
+  const apiUrl = import.meta.env.VITE_API_URL;
   // Animation variants for Framer Motion with bounce effect
   const chatBoxVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -37,10 +37,9 @@ function UserModel() {
   };
 
   useEffect(() => {
-   if(socket){
-    socket.on('REFETCH_CHATS', async () => {
-      console.log('entry');
-      let fetcher = async () => {
+    if (socket) {
+
+      let fetcherRefectch = async () => {
         try {
           const response = await axios.get(`https://whisperia-backened-production.up.railway.app/chat/get-chat`, {
             withCredentials: true,
@@ -52,23 +51,24 @@ function UserModel() {
           console.log('Error in data fetching');
         }
       };
-      fetcher();
-    });
+      let LeftGroupFunc = async ({ leftUserName, leftUser }) => {
+        console.log(leftUserName);
+        console.log(leftUser);
+        toast.success(`${leftUserName} has left the group`);
+      }
 
-    socket.on('LeftGroup', async ({ leftUserName, leftUser }) => {
-      console.log(leftUserName);
-      console.log(leftUser);
-      toast.success(`${leftUserName} has left the group`);
-    });
-   }
-   else{
-    console.log("socket not");
+      socket.on('REFETCH_CHATS', fetcherRefectch);
    
-   }
+      socket.on('LeftGroup', LeftGroupFunc);
+    }
+    else {
+      console.log("socket not");
+
+    }
 
     return () => {
-      socket.off('REFETCH_CHATS');
-      socket.off('LeftGroup');
+      socket.off('REFETCH_CHATS', fetcherRefectch);
+      socket.off('LeftGroup', LeftGroupFunc);
     };
   }, [socket]);
 

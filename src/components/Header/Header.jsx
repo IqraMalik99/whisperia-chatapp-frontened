@@ -36,6 +36,10 @@ function Header() {
       if (!res.data.data) {
         persistor.purge();
         dispatch(userLogout());
+        if (socket) {
+          socket.disconnect(); 
+          console.log("Socket disconnected on logout");
+        }
         navigate('/sign-in');
       } else {
         const data = res.data.data;

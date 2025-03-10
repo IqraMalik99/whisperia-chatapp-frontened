@@ -746,7 +746,12 @@ function ChatArea() {
               value={inputMessage}
               onChange={(e) => {
                 setInputMessage(e.target.value);
+                if(socket){
                 socket.emit('START_TYPING', { chatId, userId });
+                }
+                else{
+                  console.log("socket not connected");
+                }
               }}
               className="flex-grow p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-200 transition duration-200"
               placeholder="Type your message here..."
