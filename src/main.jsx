@@ -20,7 +20,7 @@ const Chats = lazy(() => import("./pages/Chats.jsx"));
 const GroupChat = lazy(() => import("./pages/GroupChat.jsx"));
 const SignOut = lazy(() => import("./pages/SignOut.jsx"));
 const Friends = lazy(() => import("./components/Friends.jsx"));
-
+const Profile =lazy(() => import("./components/Profile.jsx"))
 // Component to handle socket authentication
 const AppWrapper = ({ children }) => {
   const isAuthenticated = useSelector((state) => state.user.login);
@@ -55,7 +55,7 @@ createRoot(document.getElementById("root")).render(
                   <Route path="chats/:id" element={<Chats />} />
                   <Route path="group-chat" element={<GroupChat />} />
                   <Route path="group-chat/:id" element={<GroupChatInfo />} />
-
+                  <Route path="profile" element={<Profile/>} />
 
                 </Routes>
               </Home>
