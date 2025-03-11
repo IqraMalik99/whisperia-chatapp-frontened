@@ -729,9 +729,9 @@ function ChatArea() {
         {/* Chat input area */}
         <div className="w-full flex justify-center items-center">
           <div className="flex items-center w-full sm:w-2/3 md:w-1/2 lg:w-1/3 bg-purple-100 rounded-xl p-2 shadow-md border border-gray-300 fixed bottom-0 mb-4">
-            <button onClick={toggleChatbot} className="p-2">
+            {/* <button onClick={toggleChatbot} className="p-2">
               <SmartToyIcon sx={{ color: isChatbotEnabled ? 'green' : 'gray' }} />
-            </button>
+            </button> */}
             <input
               onChange={handleFile}
               type="file"
