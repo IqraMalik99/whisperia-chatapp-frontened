@@ -30,7 +30,7 @@ function SignUp() {
             console.log('Response from server:', response.data);
             reset();
             dispatch(userState(data));
-            navigate('/sign-in');
+            navigate('/sign-in', { state: {fromSignup:true } });
         } catch (error) {
             console.error('Error submitting form:', error);
         }

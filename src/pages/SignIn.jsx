@@ -5,6 +5,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { userState, userLogin } from "../store/reducer.js";
 import { Button } from "@mui/material";
+import { useLocation } from "react-router-dom";
 
 function SignIn() {
   let dispatch = useDispatch();
@@ -17,6 +18,8 @@ function SignIn() {
   } = useForm();
   const navigate = useNavigate();
   const loginUsers = useSelector((state) => state.user.login);
+  const location = useLocation();
+  let fromSignup = location.state?.fromSignup ?? false;
   console.log(loginUsers, "loginUsers");
 
 
@@ -42,7 +45,12 @@ function SignIn() {
       console.log(userInfo);
       dispatch(userState(userInfo));
       dispatch(userLogin());
-      navigate("/friends");
+      if(fromSignup){
+        navigate("/profile");
+      }
+      else{
+        navigate("/friends");
+      }
     } catch (error) {
       console.error("Error submitting form:", error);
     }
