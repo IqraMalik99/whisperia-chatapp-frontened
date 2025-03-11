@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { userState, userLogin } from "../store/reducer.js";
 import { Button } from "@mui/material";
 import { useLocation } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function SignIn() {
   let dispatch = useDispatch();
@@ -47,6 +48,10 @@ function SignIn() {
       dispatch(userLogin());
       if(fromSignup){
         navigate("/profile");
+        toast.success(
+          `Add friends for chatting`,
+          { autoClose: 2000 }
+        );
       }
       else{
         navigate("/friends");
