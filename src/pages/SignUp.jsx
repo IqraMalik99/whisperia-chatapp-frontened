@@ -6,6 +6,7 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { userState } from '../store/reducer.js';
 import { Avatar, Tooltip ,Button} from '@mui/material';
+import toast from 'react-hot-toast';
 
 function SignUp() {
     const {
@@ -21,15 +22,38 @@ function SignUp() {
     const onSubmit = async (data) => {
         try {
             console.log("My data is", data);
-            const response = await axios.post(`https://whisperia-backened-production.up.railway.app/user/sign-up`, data,  {
-                headers: {
-                  'Content-Type': 'multipart/form-data',
-                },
-                 withCredentials: true });
-            console.log('Response from server:', response.data);
-            reset();
-            dispatch(userState(data));
-            navigate('/sign-in', { state: {fromSignup:true } });
+            if(data.avatar == undefined || data.avatar == null) {
+                toast.error('Please upload a profile picture',{
+                     autoClose: 2000  
+                });
+                if(data.email == undefined || data.email == null) {
+                    toast.error('Please enter an email',{
+                         autoClose: 2000  
+                    });
+                }
+                if(data.password == undefined || data.password == null) {
+                    toast.error('Please enter a password',{
+                         autoClose: 2000  
+                    });
+                }
+                if(data.username == undefined || data.username == null) {
+                    toast.error('Please enter a username',{
+                         autoClose: 2000  
+                    });
+                }
+
+            }
+else{
+    const response = await axios.post(`https://whisperia-backened-production.up.railway.app/user/sign-up`, data,  {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+         withCredentials: true });
+    console.log('Response from server:', response.data);
+    reset();
+    dispatch(userState(data));
+    navigate('/sign-in', { state: {fromSignup:true } });
+}
         } catch (error) {
             console.error('Error submitting form:', error);
         }
