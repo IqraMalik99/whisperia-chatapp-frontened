@@ -37,26 +37,25 @@ function UserModel() {
   };
 
   useEffect(() => {
-    if (socket) {
-
-      let fetcherRefectch = async () => {
-        try {
-          const response = await axios.get(`https://whisperia-backened-production.up.railway.app/chat/get-chat`, {
-            withCredentials: true,
-          });
-          setFriends(response.data);
-          console.log(response.data, ' my chats');
-        } catch (error) {
-          console.error('Error fetching data: ', error);
-          console.log('Error in data fetching');
-        }
-      };
-      let LeftGroupFunc = async ({ leftUserName, leftUser }) => {
-        console.log(leftUserName);
-        console.log(leftUser);
-        toast.success(`${leftUserName} has left the group`);
+    let fetcherRefectch = async () => {
+      try {
+        const response = await axios.get(`https://whisperia-backened-production.up.railway.app/chat/get-chat`, {
+          withCredentials: true,
+        });
+        setFriends(response.data);
+        console.log(response.data, ' my chats');
+      } catch (error) {
+        console.error('Error fetching data: ', error);
+        console.log('Error in data fetching');
       }
+    };
+    let LeftGroupFunc = async ({ leftUserName, leftUser }) => {
+      console.log(leftUserName);
+      console.log(leftUser);
+      toast.success(`${leftUserName} has left the group`);
+    }
 
+    if (socket) {
       socket.on('REFETCH_CHATS', fetcherRefectch);
    
       socket.on('LeftGroup', LeftGroupFunc);

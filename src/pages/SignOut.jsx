@@ -8,8 +8,9 @@ import { useSocket } from "../socket.jsx";
 function SignOut() {
   const navigate = useNavigate();
   let dispatch = useDispatch();
-  const apiUrl= import.meta.env.VITE_API_URL;
-  let socket = useSocket;
+  let socket = useSocket();
+
+  // const apiUrl= import.meta.env.VITE_API_URL;
   useEffect(() => {
     let signout = async () => {
       try {
@@ -32,17 +33,18 @@ function SignOut() {
           socket.disconnect(); 
           console.log("Socket disconnected on logout");
         }
+       
       } catch (error) {
         console.error("Error submitting form in logout:", error);
         dispatch(userLogout());
+        console.log("error");
         if (socket) {
           socket.disconnect(); 
           console.log("Socket disconnected on logout");
         }
-        console.log("error");
       } finally {
         navigate("/sign-in");
-        dispatch(userLogout());
+       
       }
     };
     signout();
