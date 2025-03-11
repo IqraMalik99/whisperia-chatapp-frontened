@@ -173,7 +173,7 @@ function UserModel() {
             </div>
           </div>
         </motion.div>
-      )):<div className="text-center text-2xl text-purple-500">You have no friends yet. Add friends to start chatting!</div>}
+      )):<div className="text-center text-2xl text-purple-700 font-bold">You have no friends yet.<br></br> Add friends to start chatting!</div>}
 
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle sx={{ color: 'gray' }}>
