@@ -135,7 +135,7 @@ const SignUp = () => {
     name: "",
     email: "",
     password: "",
-    image: null,
+    image: "",
   });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
@@ -169,15 +169,14 @@ const SignUp = () => {
 
     setLoading(true);
     try {
-      const formDataToSend = new FormData();
-      formDataToSend.append("name", formData.name);
-      formDataToSend.append("email", formData.email);
-      formDataToSend.append("password", formData.password);
-      formDataToSend.append("image", formData.image);
+      const dataToSend = {
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+        image: formData.image, // Keeping the format same
+      };
 
-      await axios.post("/api/signup", formDataToSend, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      await axios.post("/api/signup", dataToSend);
     } catch (error) {
       console.error("Signup Error:", error.response?.data || error.message);
     } finally {
