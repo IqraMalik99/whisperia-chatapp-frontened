@@ -131,13 +131,26 @@ import { useState } from "react";
 import axios from "axios";
 
 const SignUp = () => {
-  const [formData, setFormData] = useState({ name: "", email: "", password: "" });
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    image: null,
+  });
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     setErrors({ ...errors, [e.target.name]: "" }); // Clear errors when user types
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setFormData({ ...formData, image: file });
+      setErrors({ ...errors, image: "" }); // Clear image error
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -147,6 +160,7 @@ const SignUp = () => {
     if (!formData.name.trim()) newErrors.name = "Name is required";
     if (!formData.email.trim()) newErrors.email = "Email is required";
     if (!formData.password.trim()) newErrors.password = "Password is required";
+    if (!formData.image) newErrors.image = "Profile picture is required";
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -155,7 +169,15 @@ const SignUp = () => {
 
     setLoading(true);
     try {
-      await axios.post("/api/signup", formData);
+      const formDataToSend = new FormData();
+      formDataToSend.append("name", formData.name);
+      formDataToSend.append("email", formData.email);
+      formDataToSend.append("password", formData.password);
+      formDataToSend.append("image", formData.image);
+
+      await axios.post("/api/signup", formDataToSend, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
     } catch (error) {
       console.error("Signup Error:", error.response?.data || error.message);
     } finally {
@@ -176,7 +198,7 @@ const SignUp = () => {
         />
         {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
       </div>
-      
+
       <div>
         <input
           type="email"
@@ -188,7 +210,7 @@ const SignUp = () => {
         />
         {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
       </div>
-      
+
       <div>
         <input
           type="password"
@@ -199,6 +221,17 @@ const SignUp = () => {
           className="border p-2 w-full"
         />
         {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
+      </div>
+
+      <div>
+        <input
+          type="file"
+          name="image"
+          onChange={handleImageChange}
+          accept="image/*"
+          className="border p-2 w-full"
+        />
+        {errors.image && <p className="text-red-500 text-sm">{errors.image}</p>}
       </div>
 
       <button
