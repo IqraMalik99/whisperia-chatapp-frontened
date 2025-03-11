@@ -134,7 +134,7 @@ function UserModel() {
 
   return (
     <div className="mt-20">
-      {friends.map((user, index) => (
+      {friends.length?friends.map((user, index) => (
         <motion.div
           key={user._id}
           initial="hidden"
@@ -173,7 +173,7 @@ function UserModel() {
             </div>
           </div>
         </motion.div>
-      ))}
+      )):<div className="text-center text-2xl text-purple-500">You have no friends yet. Add friends to start chatting!</div>}
 
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle sx={{ color: 'gray' }}>
