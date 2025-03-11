@@ -22,7 +22,7 @@ function SignUp() {
     const onSubmit = async (data) => {
         try {
             console.log("My data is", data);
-            if(data.avatar == undefined || data.avatar == null) {
+            if(!data.avatar || data.avatar.length === 0) {
                 toast.error('Please upload a profile picture',{
                      autoClose: 2000  
                 });
